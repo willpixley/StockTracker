@@ -1,4 +1,5 @@
 import pandas as pd
+import subprocess
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
@@ -206,9 +207,9 @@ class Trade(): ### first, last, date, ticker, type, country, link, size
         self.link = link
         self.history = ''
         self.industry = self.getIndustry(tickers)
-        self.pctChange = 0
+        self.pctChange = 0 
         self.rating = 'N/A'
-        self.flag = False
+        self.flag = False ### means there is industry/committee overlap
         
 
     def samePerson(self, t) -> bool:
@@ -454,6 +455,7 @@ class Compare():
 ### byWhat: True=find by publication date, False= find by trade date
 
 def main():
+    subprocess.check_call(['pip', 'install', '--user', '-r', 'requirements.txt'])
     pages = int(input("How many pages of stocks? "))
     byWhat = input("To sort by publication date enter 'y'. To sort by Trade date enter 'n'. ")
     while byWhat != 'y' and byWhat != 'n':

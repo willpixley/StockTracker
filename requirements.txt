@@ -1,0 +1,11 @@
+numpy
+pandas
+yfinance
+selenium
+webdriver-manager
+chomedriver-py
+chomedriver
+styleframe
+sys
+os
+datetime
