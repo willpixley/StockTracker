@@ -9,8 +9,7 @@ from dateutil.relativedelta import relativedelta
 from datetime import date as Date
 import numpy as np
 import os
-
-
+from styleframe import StyleFrame, Styler, utils
 ### run Scraper(num_pages).scrape() to get trades
 
 ###creates a TradeList instance, which is a list of Trade objects
@@ -209,6 +208,7 @@ class Trade(): ### first, last, date, ticker, type, country, link, size
         self.industry = self.getIndustry(tickers)
         self.pctChange = 0
         self.rating = 'N/A'
+        self.flag = False
         
 
     def samePerson(self, t) -> bool:
@@ -310,10 +310,18 @@ class TradeList():
     
     def toExcel(self, filename):
         fullTrades = []
-        for trade in self.tList:
-            fullTrades.append(trade.getTradeInfo())
+        indicies = []
+        for i in range(len(self.tList)):
+            if self.tList[i].flag:
+                indicies.append(i)
+            fullTrades.append(self.tList[i].getTradeInfo())
         df = pd.DataFrame(fullTrades, columns = ['Name', 'Type','Ticker','% Change', 'Rating', 'Industry', 'Date', 'Size', 'Link'] )
-        df.to_excel(filename)
+        sf = StyleFrame(df)
+        sketchy_style = Styler(bg_color=utils.colors.red, font_color=utils.colors.white)
+        sf.apply_style_by_indexes(indicies, styler_obj=sketchy_style)
+        sf.to_excel(filename).save()
+
+
     
     def addTrade(self, trade):
         self.tList.append(trade)
@@ -403,8 +411,8 @@ class Compare():
                     
                     relevantIndustry.update(fullCommittees[c])
                 except: continue
-            if trade.getIndustry(self.tickers) in relevantIndustry or trade.last == 'Pelosi': ### returns industry of the ticker
-                self.sus.addTrade(trade) 
+            if trade.getIndustry(self.tickers) in relevantIndustry: ### returns industry of the ticker
+                trade.flag = True 
     def findGoodTrades(self):
         for trade in self.tradeList:
             pctChange, numMonths = trade.getPctChange()
@@ -455,6 +463,7 @@ def main():
         status = True
     
     c = Compare(pages, byWhat=status)
+    c.findOverlap()
     c.findGoodTrades()
     filename = input("What would you like to name your file? (Do not include file extension)  ")
     filename = filename + '.xlsx'
