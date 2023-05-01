@@ -8,6 +8,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from datetime import date as Date
 import numpy as np
+import os
 
 
 ### run Scraper(num_pages).scrape() to get trades
@@ -16,7 +17,9 @@ import numpy as np
 
 class Tickers():
     def getTickers(self):
-        df = pd.read_excel('/Users/willpixley/Desktop/WebScraper/Stocks.xlsx')
+        path = 'Spreadsheets/Stocks.xlsx'
+        filePath = os.path.join("Spreadsheets", "Stocks.xlsx")
+        df = pd.read_excel(filePath)
         tickers = list(df.Ticker)
         industry = list(df.Industry)
         self.tickerD = {}
@@ -440,16 +443,25 @@ class Compare():
     
 
 ### each instance of scraper creates its own instance of TradeList
-'''
-s = Scraper(40)
-s.scrape()
-s.tradeList.toExcel('allTrades.xlsx')
-'''
+### byWhat: True=find by publication date, False= find by trade date
+
+def main():
+    pages = int(input("How many pages of stocks? "))
+    byWhat = input("To sort by publication date enter 'y'. To sort by Trade date enter 'n'. ")
+    while byWhat != 'y' and byWhat != 'n':
+        byWhat = input("Please enter 'y' or 'n': ")
+    status = False
+    if byWhat == 'y':
+        status = True
+    
+    c = Compare(pages, byWhat=status)
+    c.findGoodTrades()
+    filename = input("What would you like to name your file? (Do not include file extension)  ")
+    filename = filename + '.xlsx'
+    c.storable.toExcel(filename)
 
 
-c = Compare(50, byWhat=True)
-c.findGoodTrades()
-c.storable.toExcel('TradesWithPrices4.xlsx')
+if __name__ == '__main__':
+    main()
 
 
-### react native
