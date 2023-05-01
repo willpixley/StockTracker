@@ -5,3 +5,5 @@ Modules to install:
 Pandas, yfinance, selenium, webdriver-manager, chromedriver-py, chromedriver, styleframe
 
 All of these modules can be installed via pip using the names above. All other modules used in the program should be installed by default when you install Python.
+
+Don't hesitate to email me with questions, suggestions, or concerns @ wtpixley@gmail.com
