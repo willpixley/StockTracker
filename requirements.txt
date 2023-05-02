@@ -3,9 +3,5 @@ pandas
 yfinance
 selenium
 webdriver-manager
-chomedriver-py
-chomedriver
+chromedriver-py
 styleframe
-sys
-os
-datetime
