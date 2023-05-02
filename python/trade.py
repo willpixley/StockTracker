@@ -2,7 +2,7 @@ import datetime as dt
 from datetime import datetime
 import numpy as np
 from dateutil.relativedelta import relativedelta
-import Tickers
+import python.Tickers as Tickers
 import yfinance as yf
 
 ### pandas, selenium, webdriver, webdriver-manager, openpyxl, selenium.webdriver

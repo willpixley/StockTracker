@@ -2,9 +2,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 import datetime as dt
-import Tickers
-from TradeList import TradeList
-from trade import Trade
+import python.Tickers as Tickers
+from python.TradeList import TradeList
+from python.trade import Trade
 
 
 class Scraper():

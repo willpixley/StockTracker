@@ -1,7 +1,7 @@
-from TradeList import TradeList
-from scraper import Scraper
-import Tickers
-from committees import *
+from python.TradeList import TradeList
+from python.scraper import Scraper
+import python.Tickers as Tickers
+from python.committees import *
 
 class Compare():
     def __init__(self, pages, byWhat=False) -> None:

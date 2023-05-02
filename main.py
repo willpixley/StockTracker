@@ -1,7 +1,5 @@
 import subprocess
-from compare import Compare
-import importlib.util
-import sys
+from python.compare import Compare
 
 
 

@@ -1,4 +1,4 @@
-from trade import Trade
+from python.trade import Trade
 import pandas as pd
 from styleframe import StyleFrame, Styler, utils
 class TradeList():
