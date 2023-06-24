@@ -146,6 +146,40 @@ SenateCommittees = {
     },
     "Small Business and Entrepreneurship": {'N/A'}, "Veterans' Affairs": {"Aerospace & Defense", "Medical Care Facilities"}
     ,'Ways and Means':{'Utilities', 'Banks-Regional', 'Insurance—Specialty', 'Insurance—Property & Casualty', 'Asset Management', 'Banks—Diversified', 'Capital Markets', 'Insurance Brokers', 'Insurance—Diversified', 'Insurance—Reinsurance', 'Financial Data & Stock Exchanges', 'Insurance—Life', 'Financial Conglomerates', 'Credit Services'}}
-   
+ 
 fullCommittees = HouseCommittees | SenateCommittees
+
+import pandas as pd
+import os
+def getHouseCommittee():
+    filePath = os.path.join("Spreadsheets", "House Committees.xlsx")
+    df = pd.read_excel(filePath)
+    lastNames = df["Last"]
+    committees = df["Committee"]
+    d = {}
+    for i in range(len(lastNames)):
+        temp = lastNames[i].split(",")
+        com = committees[i].split("|")
+        d[temp[0]] = com
+    return d
+
+
+    
+
+def getSenateCommittee():
+    filePath = os.path.join("Spreadsheets", "SenateCommittees.xlsx")
+    df = pd.read_excel(filePath)
+    l = df["Committees"]
+    lastCommittee = ""
+    d = {}
+    for i in range(len(l)):
+        name = l[i].split(",")[0]
+        if l[i][-1] != ")":
+            lastCommittee = l[i]
+        else:
+            if name not in d:
+                d[name] = [lastCommittee]
+            else:
+                d[name].append(lastCommittee)
+    return d
 

@@ -4,7 +4,7 @@ from python.compare import Compare
 
 
 def main():
-    subprocess.check_call(['pip', 'install', '--user', '-r', 'requirements.txt']) ### downloads required modules
+    #subprocess.check_call(['pip', 'install', '--user', '-r', 'requirements.txt']) ### downloads required modules
     pages = int(input("How many pages of stocks? "))
     byWhat = input("To sort by publication date enter 'y'. To sort by Trade date enter 'n'. ")
     ### each instance of scraper creates its own instance of TradeList

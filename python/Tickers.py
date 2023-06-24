@@ -2,7 +2,6 @@ import pandas as pd
 import os
 
 def getTickers():
-    path = 'Spreadsheets/Stocks.xlsx'
     filePath = os.path.join("Spreadsheets", "Stocks.xlsx")
     df = pd.read_excel(filePath)
     tickers = list(df.Ticker)

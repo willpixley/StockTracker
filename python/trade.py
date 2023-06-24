@@ -23,7 +23,7 @@ class Trade(): ### first, last, date, ticker, type, country, link, size
             self.volume = 500
         self.volume = np.average(self.volume)   ### averages size range 
         # convert the date string to a date object
-        self.date = datetime.strptime(date, '%Y-%m-%d').date()
+        self.date = datetime.strptime(date, '%m-%d-%Y').date()
         self.ticker = ticker 
         self.type = type 
         self.country = country

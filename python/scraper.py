@@ -5,6 +5,8 @@ import datetime as dt
 import python.Tickers as Tickers
 from python.TradeList import TradeList
 from python.trade import Trade
+from selenium.webdriver.chrome.options import Options
+
 
 
 class Scraper():
@@ -21,6 +23,11 @@ class Scraper():
         self.months = {'Jan':1,'Feb':2,'Mar':3,'Apr':4,'May':5,'Jun':6,'Jul':7,
         'Aug':8,'Sep':9,'Oct':10,'Nov':11,'Dec':12 }
     def scrape(self):
+        # Create ChromeOptions object
+        chrome_options = Options()
+
+# Set headless mode
+        chrome_options.add_argument("--headless=new")   
         driver = webdriver.Chrome()        
         timerLength = .5
         for i in range(1, self.pages): #3366
@@ -42,8 +49,8 @@ class Scraper():
                 link = tradeLink.get_attribute('href')
                 date = tradeDate[i].text.replace('\n', ' ')
                 date = date.split()
-                date = dt.datetime(int(date[0]),self.months[date[2]], int(date[1]) )
-                date = date.strftime("%Y-%m-%d")
+                date = dt.datetime(year=int(date[0]),month=self.months[date[2]], day=int(date[1]) )
+                date = date.strftime("%m-%d-%Y")
                 ticker = tradeTicker[i].text.split(":")[0]
                 type = tradeType[i].text
                 size = tradeSize[i].text

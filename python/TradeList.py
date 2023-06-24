@@ -32,12 +32,14 @@ class TradeList():
     def toExcel(self, filename):
         fullTrades = []
         indicies = []
+
         for i in range(len(self.tList)):
             if self.tList[i].flag:
                 indicies.append(i)
             fullTrades.append(self.tList[i].getTradeInfo())
         df = pd.DataFrame(fullTrades, columns = ['Name', 'Type','Ticker','% Change', 'Rating', 'Industry', 'Date', 'Size', 'Link'] )
         sf = StyleFrame(df)
+        print(indicies)
         sketchy_style = Styler(bg_color=utils.colors.red, font_color=utils.colors.white)
         sf.apply_style_by_indexes(indicies, styler_obj=sketchy_style)
         sf.to_excel(filename).save()
