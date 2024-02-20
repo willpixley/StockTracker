@@ -39,19 +39,17 @@ class Trade(): ### first, last, date, ticker, type, country, link, size
         if self.last == t.last:
             return True
         return False
-    def getPctChange(self):
-            
-            delta = relativedelta(datetime.now(), self.date)
-            numMonths = delta.years * 12 + delta.months
-            history = list(self.getStockHistory().Open)
-            
-            try: 
-                self.pctChange = (history[-1]-history[0])/history[0] * 100
-            except:
-                self.pctChange = 0
-            return self.pctChange, numMonths
+    def getPctChange(self) -> (float, int):
+        delta = relativedelta(datetime.now(), self.date)
+        numMonths = delta.years * 12 + delta.months
+        history = list(self.getStockHistory().Open)
+        try: 
+            self.pctChange = round((history[-1]-history[0])/history[0] * 100, 2)
+        except:
+            self.pctChange = 0
+        return self.pctChange, numMonths
     
-    def getStockHistory(self):
+    def getStockHistory(self) -> any:
         self.history = yf.download(self.ticker, self.date, dt.datetime.now())
         return self.history
     
@@ -63,7 +61,10 @@ class Trade(): ### first, last, date, ticker, type, country, link, size
         except: industry = 'Unknown'
         return industry
     
-    def __str__(self):
+    def __str__(self) -> str:
         return '[{} {}, {}, {}, {}, {}, {}]'.format(self.first, self.last, self.type, self.ticker, self.date, self.country, self.link)    
     def getattribute(self, __name) -> any:
         return __name
+    
+t = Trade('Will', 'Pixley', '10-29-2003', 'AAPL', 'SELL', 'USA', 'testLink', '7500-10000')
+t.getStockHistory()

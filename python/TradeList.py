@@ -1,3 +1,10 @@
+'''
+TradeList stores scraped trades
+
+
+'''
+
+
 from python.trade import Trade
 import pandas as pd
 from styleframe import StyleFrame, Styler, utils
@@ -11,10 +18,11 @@ class TradeList():
         for trade in self.tList:
             returnList.append(trade.getattribute(__name))
         return returnList
-    def add(self, first, last, date, ticker, type, country, link):
+    
+    def add(self, first, last, date, ticker, type, country, link) -> None:
         self.tList.append(Trade(first, last, date, ticker, type, country, link))
     
-    def getBy(self, param: str, correct: str or int):
+    def getBy(self, param: str, correct: str or int) -> list:
         returnList = []
         for trade in self.tList:
             try:
@@ -23,13 +31,17 @@ class TradeList():
             except: 
                 print("No such attribute")
         return returnList
-    def __str__(self):
+    def __str__(self) -> str:
         s = ''
         for trade in self.tList:
             s += ' '+trade.__str__()
         return s
     
-    def toExcel(self, filename):
+    def extendTrades(self, newList) -> None:
+        for trade in newList:
+            self.addTrade(trade)
+    
+    def toExcel(self, filename) -> None:
         fullTrades = []
         indicies = []
 
@@ -46,9 +58,9 @@ class TradeList():
 
 
     
-    def addTrade(self, trade):
+    def addTrade(self, trade) -> None:
         self.tList.append(trade)
     
    
-    def getList(self):
+    def getList(self) -> list:
         return self.tList
