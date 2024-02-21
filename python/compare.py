@@ -4,9 +4,6 @@ from python.scraper import Scraper
 import python.Tickers as Tickers
 from python.committees import *
 
-with open('Full_Committees.json', 'r') as json_file:
-    fullCommittees = json.load(json_file)
-
 
 
 senateAssignments = getSenateCommittee()
