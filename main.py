@@ -1,6 +1,6 @@
 from python.compare import Compare
 from python.gui import Gui
-
+import os
 
 
 def main():
@@ -11,6 +11,9 @@ def main():
     c = Compare(pages, byWhat=byPubDate)
     c.findOverlap()
     c.findGoodTrades()
+    if not os.path.exists('output'):
+    # If the directory doesn't exist, create it
+        os.makedirs('output')
     filename = 'output/'+gui.getFilepath()
     c.storable.toExcel(filename)
 
