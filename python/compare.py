@@ -8,6 +8,7 @@ from python.committees import *
 
 senateAssignments = getSenateCommittee()
 houseAssignments = getHouseCommittee()
+fullCommittees = getFullCommittees()
 congressmanByCommittee = senateAssignments | houseAssignments
 
 class Compare():
