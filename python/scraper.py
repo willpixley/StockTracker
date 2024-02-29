@@ -36,7 +36,7 @@ class Page():
     ###  Gets specifics of each page, formats and outputs as Trade object
     ###
     def _getSpecifics(self, i) -> Trade:
-        link = "https://www.capitoltrades.com"+ str(self.tradeLinks[i].get_attribute('href'))
+        link = str(self.tradeLinks[i].get_attribute('href'))
         lastName = self.tradeNames[i].text.split(' ')[-1].strip()
         firstName = self.tradeNames[i].text.split(' ')[0].strip()
         #link = self.tradeLinks[i].get_attribute('href')
